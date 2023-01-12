@@ -5,4 +5,4 @@ ADD www /www
 ADD nginx.conf /etc/nginx/
 COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
-#ENTRYPOINT [ "./entrypoint.sh" ]
+ENTRYPOINT [ "./entrypoint.sh" ]
