@@ -22,8 +22,22 @@ node {
             sh 'echo "Tests passed"'
         }
     }
-
-    stage('Push image') {
+    environment {     
+    DOCKERHUB_CREDENTIALS= credentials('1234567890')     
+} 
+        stage('Login to Docker Hub') {      	
+    steps{                       	
+	sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                		
+	echo 'Login Completed'      
+    }           
+}   
+    stage('Push Image to Docker Hub') {         
+    steps{                            
+ sh 'sudo docker push prashanthvasam9676/docker-test:$BUILD_NUMBER'           
+echo 'Push Image Completed'       
+    }            
+}  
+    /*stage('Push image') {
         /* Finally, we'll push the image with two tags:
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
@@ -32,5 +46,5 @@ node {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
         }
-    }
+    }*/
 }
