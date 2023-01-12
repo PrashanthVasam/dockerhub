@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("prashanthvasam/dockerhub")
+        app = docker.build("prashanthvasam9676/docker-test")
     }
 
     stage('Test image') {
@@ -22,20 +22,16 @@ node {
             sh 'echo "Tests passed"'
         }
     }
-    environment {     
-    DOCKERHUB_CREDENTIALS= credentials('1234567890')     
-} 
-        stage('Login to Docker Hub') {      	
-    steps{                       	
-	sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                		
-	echo 'Login Completed'      
-    }           
-}   
-    stage('Push Image to Docker Hub') {         
-    steps{                            
- sh 'sudo docker push prashanthvasam9676/docker-test:$BUILD_NUMBER'           
-echo 'Push Image Completed'       
-    }            
+    stage('Push image') {
+        /* Finally, we'll push the image with two tags:
+         * First, the incremental build number from Jenkins
+         * Second, the 'latest' tag.
+         * Pushing multiple tags is cheap, as all the layers are reused. */
+        docker.withRegistry('https://registry.hub.docker.com', '1234567890') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+        }
+    }   
 }  
     
 }
