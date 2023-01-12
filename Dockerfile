@@ -4,5 +4,5 @@ RUN mkdir -p /tmp/nginx && echo "clear_env = no" >> /etc/php7/php-fpm.conf
 ADD www /www
 ADD nginx.conf /etc/nginx/
 COPY entrypoint.sh .
-RUN chmod +x entrypoint.sh
+RUN chmod +777 entrypoint.sh
 ENTRYPOINT [ "./entrypoint.sh" ]
