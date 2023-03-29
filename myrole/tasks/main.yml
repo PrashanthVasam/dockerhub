@@ -7,11 +7,11 @@
   debug:
     msg: "Database connectivity {{ 'possible' if result.rc == 0 else 'not possible' }}"
 - name: Ping google.com
-  shell: ping -c 10 google.com
+  shell: ping -c 10 {{ g }}
 - name: Ping yahoo.com
-  shell: ping -c 10 yahoo.com
+  shell: ping -c 10 {{ y }}
 - name: Ping facebook.com
-  shell:  ping -c 10 facebook.com
+  shell:  ping -c 10 {{ f }}
 - name: Ping portal.azure.com
-  shell: ping -c 10 portal.azure.com
+  shell: ping -c 10 {{ p }}
 # tasks file for myrole
