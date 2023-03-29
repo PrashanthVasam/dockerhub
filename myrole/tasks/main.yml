@@ -1,0 +1,17 @@
+---
+- name: Check database connectivity
+  shell: "pg_isready -h {{ db_host }} -p {{ db_port }} -U {{ db_user }} -d {{ db_name }}"
+  register: result
+  ignore_errors: yes
+- name: Print result
+  debug:
+    msg: "Database connectivity {{ 'possible' if result.rc == 0 else 'not possible' }}"
+- name: Ping google.com
+  shell: ping -c 10 google.com
+- name: Ping yahoo.com
+  shell: ping -c 10 yahoo.com
+- name: Ping facebook.com
+  shell:  ping -c 10 facebook.com
+- name: Ping portal.azure.com
+  shell: ping -c 10 portal.azure.com
+# tasks file for myrole

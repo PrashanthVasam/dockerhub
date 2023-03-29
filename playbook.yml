@@ -1,0 +1,6 @@
+---
+- name: My playbook
+  hosts: localhost
+  roles:
+    - myrole
+
